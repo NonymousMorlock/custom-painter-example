@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: kAppName,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: kMainColour,
       ),
