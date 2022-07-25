@@ -51,17 +51,21 @@ class _CanvasScreenState extends State<CanvasScreen> {
     );
   }
 
-  @override
-  void initState() {
+  void particleAnimation() {
     selectedColor = Colors.black;
     strokeWidth = 2.0;
     timer = Timer.periodic(const Duration(milliseconds: 1000 ~/ 60), (timer) {
       setState(() {
-        for(final particle in particles) {
+        for (final particle in particles) {
           particle.pos += Offset(particle.dx, particle.dy);
         }
       });
     });
+  }
+
+  @override
+  void initState() {
+    particleAnimation();
     super.initState();
   }
 

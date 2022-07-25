@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/particle.dart';
 
 class ParticlePainter extends CustomPainter {
+  // generate 100 particles at initState of each screen and add add them to this list
   List<Particle> particles;
   ParticlePainter({required this.particles});
 

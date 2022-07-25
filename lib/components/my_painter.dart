@@ -19,10 +19,13 @@ class MyPainter extends CustomPainter {
 
     /// draw based on user gestures
     for (int i = 0; i < points.length - 1; i++) {
+      // if the stroke after current stroke is not null, it's a line
       if (points[i] != null && points[i + 1] != null) {
         final paint = points[i]!.strokePaint;
         canvas.drawLine(points[i]!.point, points[i + 1]!.point, paint);
-      } else if (points[i] != null && points[i + 1] == null) {
+      } 
+      // else if the point after current stroke it null, then it's a point
+      else if (points[i] != null && points[i + 1] == null) {
         final paint = points[i]!.strokePaint;
         canvas.drawPoints(PointMode.points, [points[i]!.point], paint);
       }

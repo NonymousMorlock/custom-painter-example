@@ -15,34 +15,45 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin{
-
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
   late Timer timer;
   final particles = List<Particle>.generate(100, (index) => Particle());
   late AnimationController controller;
   late Animation animation;
 
-  @override
-  void initState() {
-    controller = AnimationController(vsync: this, duration: const Duration(seconds: 10))..forward();
+  void fABColorAnimation() {
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 10))
+          ..forward();
     controller.addListener(() {
       setState(() {});
     });
     controller.addStatusListener((status) {
-      if(status == AnimationStatus.completed) {
+      if (status == AnimationStatus.completed) {
         controller.reverse();
-      } else if(status == AnimationStatus.dismissed) {
+      } else if (status == AnimationStatus.dismissed) {
         controller.forward();
       }
     });
-    animation = ColorTween(begin: Colors.red, end: kFABColour).animate(controller);
+    animation =
+        ColorTween(begin: Colors.red, end: kFABColour).animate(controller);
+  }
+
+  void particleAnimation() {
     timer = Timer.periodic(const Duration(milliseconds: 1000 ~/ 60), (timer) {
       setState(() {
-       for(final particle in particles) {
-         particle.pos += Offset(particle.dx, particle.dy);
-       }
+        for (final particle in particles) {
+          particle.pos += Offset(particle.dx, particle.dy);
+        }
       });
     });
+  }
+
+  @override
+  void initState() {
+    fABColorAnimation();
+    particleAnimation();
     super.initState();
   }
 
@@ -72,13 +83,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
           await Navigator.pushNamed(context, CanvasScreen.id);
           controller.forward();
           setState(() {
-            timer = Timer.periodic(const Duration(milliseconds: 1000 ~/ 60), (timer) {
-              setState(() {
-                for(final particle in particles) {
-                  particle.pos += Offset(particle.dx, particle.dy);
-                }
-              });
-            });
+            particleAnimation();
           });
         },
         child: Image.asset("images/paint_brush.png"),
