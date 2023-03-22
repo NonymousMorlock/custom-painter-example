@@ -11,6 +11,7 @@ import '../utilities/constants.dart';
 
 class CanvasScreen extends StatefulWidget {
   static const id = '/canvas';
+
   const CanvasScreen({super.key});
 
   @override
@@ -224,6 +225,18 @@ class _CanvasScreenState extends State<CanvasScreen> {
           ),
         ],
       ),
+      floatingActionButton: [
+        TargetPlatform.linux,
+        TargetPlatform.windows,
+        TargetPlatform.macOS,
+      ].contains(Theme.of(context).platform)
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_back),
+            )
+          : null,
     );
   }
 }
